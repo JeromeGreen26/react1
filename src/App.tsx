@@ -1,21 +1,17 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import { tasks } from './components/testData';
+// App.tsx
+import { useState } from 'react'; // Only keep necessary imports
 import TaskList from './components/TaskList';
+import { tasks as initialTasks } from './components/testData';
 
 function App() {
-  
+  const [tasks, setTasks] = useState(initialTasks);
 
   return (
-    <>
-      <div>
+    <div>
       <h1>My To-Do App</h1>
-      <TaskList tasks={tasks} />
+      <TaskList tasks={tasks} setTasks={setTasks} />
     </div>
-     
-    </>
-  )
+  );
 }
 
-export default App
+export default App;
