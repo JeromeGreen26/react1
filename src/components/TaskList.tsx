@@ -1,38 +1,24 @@
-// components/TaskList.tsx
-import { Task } from './testData'; // Import the Task type from testData
-import TaskItem from './TaskItem';
+import React from 'react';
 
-interface TaskListProps {
-  tasks: Task[];
-  setTasks: React.Dispatch<React.SetStateAction<Task[]>>;
-}
+type TaskListProps = {
+  tasks: any[];
+  onEdit: (task: any) => void;
+  onDelete: (taskId: number) => void;
+};
 
-const TaskList: React.FC<TaskListProps> = ({ tasks, setTasks }) => {
-  const handleRemoveTask = (taskId: number) => {
-    const updatedTasks = tasks.filter(task => task.id !== taskId);
-    setTasks(updatedTasks);  // Update the state in App component
-  };
-
-  const handleToggleCompletion = (taskId: number) => {
-    const updatedTasks = tasks.map(task =>
-      task.id === taskId ? { ...task, completed: !task.completed } : task
-    );
-    setTasks(updatedTasks);  // Update the state in App component
-  };
-
+const TaskList = ({ tasks, onEdit, onDelete }: TaskListProps) => {
   return (
     <ul>
-      {tasks.map(task => (
-        <TaskItem
-          key={task.id}
-          task={task}
-          onRemove={handleRemoveTask}
-          onToggle={handleToggleCompletion}
-        />
+      {tasks.map((task) => (
+        <li key={task.id}>
+          <h3>{task.name}</h3>
+          <p>{task.description}</p>
+          <button onClick={() => onEdit(task)}>Edit</button>
+          <button onClick={() => onDelete(task.id)}>Delete</button>
+        </li>
       ))}
     </ul>
   );
 };
 
 export default TaskList;
-
